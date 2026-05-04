@@ -1,3 +1,5 @@
+// Este componente dibuja una lista de puntos importantes del video
+// Cuando haces clic en uno, el video salta a ese segundo exacto
 export default class HighlightList extends HTMLElement {
     constructor() {
         super();
@@ -10,14 +12,20 @@ export default class HighlightList extends HTMLElement {
 
     render() {
         const color = this.getAttribute('color') || '#d97706';
-        const highlightsJson = this.getAttribute('highlights') || '[]';
+        const highlightsJson = this.getAttribute('highlights');
         let highlights = [];
+        
+        // El atributo 'highlights' viene como un string de JSON
+        // Tenemos que convertirlo a un objeto de JS para usar .map()
         try {
-            highlights = JSON.parse(highlightsJson);
+            if (highlightsJson && highlightsJson !== 'undefined' && highlightsJson !== 'null') {
+                highlights = JSON.parse(highlightsJson);
+            }
         } catch (e) {
             console.error("Error parsing highlights", e);
         }
 
+        // Si no hay highlights, no dibujamos nada
         if (highlights.length === 0) {
             this.shadowRoot.innerHTML = '';
             return;
@@ -47,7 +55,7 @@ export default class HighlightList extends HTMLElement {
                 }
                 .item:hover {
                     background: rgba(146, 64, 14, 0.1);
-                    transform: translateX(5px);
+                    transform: translateX(5px); /* Efecto de desplazamiento al pasar el mouse */
                 }
                 .time {
                     font-family: 'Share Tech Mono', monospace;
@@ -71,8 +79,10 @@ export default class HighlightList extends HTMLElement {
             </div>
         `;
 
+        // Agregamos el evento de clic a cada item de la lista
         this.shadowRoot.querySelectorAll('.item').forEach(item => {
             item.onclick = () => {
+                // Lanzamos un evento 'seek' que la App escuchará para adelantar el YouTube
                 this.dispatchEvent(new CustomEvent('seek', {
                     detail: { time: item.dataset.time },
                     bubbles: true,

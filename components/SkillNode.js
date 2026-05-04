@@ -1,3 +1,5 @@
+// Este componente es un "nodo" o botoncito en el árbol de habilidades
+// Representa un tema individual (como Historia, Ingredientes, etc.)
 export default class SkillNode extends HTMLElement {
     constructor() {
         super();
@@ -14,6 +16,8 @@ export default class SkillNode extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        // Cuando hacemos clic en el nodo, lanzamos el evento 'node-select'
+        // app.js está escuchando este evento para cambiar el video
         this.addEventListener('click', () => {
             const id = this.getAttribute('topic-id');
             if (id) {
@@ -44,8 +48,10 @@ export default class SkillNode extends HTMLElement {
                 .node {
                     width: 100%;
                     height: 100%;
+                    /* Si está seleccionado, cambia el color de fondo */
                     background: ${selected ? color : 'var(--surface, #0d0d1a)'};
                     border: 1px solid ${selected ? 'white' : color};
+                    /* Este clip-path le da esa forma futurista con esquinas cortadas */
                     clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 15% 100%, 0 85%);
                     display: flex;
                     flex-direction: column;
@@ -56,7 +62,7 @@ export default class SkillNode extends HTMLElement {
                     box-shadow: ${selected ? `0 0 15px ${color}` : 'none'};
                 }
                 .node:hover {
-                    transform: scale(1.05);
+                    transform: scale(1.05); /* Se hace un poquito más grande al pasar el mouse */
                     box-shadow: 0 0 15px ${color};
                     border-color: white;
                 }

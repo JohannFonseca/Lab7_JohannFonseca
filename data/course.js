@@ -1,3 +1,6 @@
+// Aquí es donde vive toda la información de nuestro curso "Brew Master Academy"
+// Es un objeto gigante con un arreglo de "fases", y cada fase tiene sus "temas"
+// Es como nuestra base de datos pero en un archivo de JS
 export const COURSE_DATA = {
     title: "Brew Master Academy",
     phases: [
@@ -7,7 +10,13 @@ export const COURSE_DATA = {
             icon: "🌾",
             color: "#d97706",
             topics: [
-                { id: "historia", title: "Historia", icon: "📜", desc: "Origen y evolución de la cerveza", videoId: "cvFb9RT43n4", 
+                { 
+                  id: "historia", 
+                  title: "Historia", 
+                  icon: "📜", 
+                  desc: "Origen y evolución de la cerveza", 
+                  videoId: "cvFb9RT43n4", 
+                  // Estos son puntos clave en el tiempo del video principal
                   highlights: [
                     {time: "0:01:00", label: "Cerveza en el antiguo Egipto"},
                     {time: "0:03:00", label: "Producción medieval"},

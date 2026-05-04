@@ -1,9 +1,12 @@
+// Este componente representa una "tarjeta" de capítulo técnico
+// Se usa para listar partes de un video largo
 export default class ChapterCard extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
     }
 
+    // Estos son los datos que le pasamos desde app.js
     static get observedAttributes() {
         return ['active', 'chapter-id', 'title', 'duration', 'video-id', 'color', 'highlights'];
     }
@@ -17,13 +20,16 @@ export default class ChapterCard extends HTMLElement {
     }
 
     render() {
+        // Sacamos los atributos para usarlos en el HTML
         const id = this.getAttribute('chapter-id');
         const title = this.getAttribute('title');
         const duration = this.getAttribute('duration');
         const videoId = this.getAttribute('video-id');
         const color = this.getAttribute('color') || '#65a30d';
-        const active = this.hasAttribute('active');
+        const active = this.hasAttribute('active'); // ¿Estamos viendo este capítulo ahorita?
         const highlights = this.getAttribute('highlights') || '[]';
+        // Asegurarnos de que no sea el string "undefined"
+        const cleanHighlights = (highlights === 'undefined' || highlights === 'null') ? '[]' : highlights;
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -32,6 +38,7 @@ export default class ChapterCard extends HTMLElement {
                     margin-bottom: 1rem;
                 }
                 .card {
+                    /* Si está activo, le ponemos un fondo sutil */
                     background: ${active ? 'rgba(101, 163, 13, 0.05)' : 'var(--surface, #0d0d1a)'};
                     border: 1px solid ${active ? color : 'rgba(146, 64, 14, 0.2)'};
                     padding: 1rem;
@@ -74,6 +81,7 @@ export default class ChapterCard extends HTMLElement {
                     font-size: 0.8rem;
                     color: var(--accent-copper);
                 }
+                /* Solo mostramos los highlights si la tarjeta está activa */
                 .highlights-panel {
                     display: ${active ? 'block' : 'none'};
                     padding-top: 1rem;
@@ -89,16 +97,19 @@ export default class ChapterCard extends HTMLElement {
                     <div class="duration">${duration}</div>
                 </div>
                 <div class="highlights-panel">
-                    <highlight-list color="${color}" highlights='${highlights}'></highlight-list>
+                    <!-- Reutilizamos el componente highlight-list aquí adentro -->
+                    <highlight-list color="${color}" highlights='${cleanHighlights}'></highlight-list>
                 </div>
             </div>
         `;
 
+        // Al hacer clic en el botón de Play, avisamos a la App
+        // Usamos Custom Events para que la App se entere (bubbles: true es clave)
         this.shadowRoot.querySelector('.play-btn').onclick = () => {
             this.dispatchEvent(new CustomEvent('chapter-play', {
                 detail: { videoId: videoId, chapterId: id },
                 bubbles: true,
-                composed: true
+                composed: true // Esto permite que el evento salga del Shadow DOM
             }));
         };
     }

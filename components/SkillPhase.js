@@ -1,3 +1,5 @@
+// Este componente agrupa varios SkillNodes bajo un mismo título (como "Fundamentos")
+// Es como un contenedor para las diferentes etapas del curso
 export default class SkillPhase extends HTMLElement {
     constructor() {
         super();
@@ -17,7 +19,7 @@ export default class SkillPhase extends HTMLElement {
             <style>
                 :host {
                     display: block;
-                    margin-bottom: 2rem;
+                    margin-bottom: 2rem; /* Espacio entre fases */
                 }
                 .header {
                     display: flex;
@@ -36,11 +38,13 @@ export default class SkillPhase extends HTMLElement {
                     letter-spacing: 1px;
                 }
                 .line {
+                    /* Esta es la línea decorativa que se va desvaneciendo */
                     flex-grow: 1;
                     height: 1px;
                     background: linear-gradient(to right, ${color}, transparent);
                 }
                 .grid {
+                    /* Los nodos se acomodan uno al lado del otro y saltan de línea si no caben */
                     display: flex;
                     flex-wrap: wrap;
                     gap: 12px;
@@ -52,6 +56,7 @@ export default class SkillPhase extends HTMLElement {
                 <div class="line"></div>
             </div>
             <div class="grid">
+                <!-- <slot> permite que app.js meta los SkillNodes aquí adentro en el HTML -->
                 <slot></slot>
             </div>
         `;

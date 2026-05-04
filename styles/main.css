@@ -1,3 +1,5 @@
+/* Aquí definimos nuestras "variables" globales */
+/* Es súper útil porque si quiero cambiar el naranja de toda la página, solo lo cambio aquí una vez */
 :root {
     --bg-dark: #07070f;
     --surface: #0d0d1a;
@@ -7,33 +9,37 @@
     --text-primary: #f3f4f6;
     --text-dim: #9ca3af;
     
+    /* Tipografías que importamos de Google Fonts */
     --font-medieval: 'MedievalSharp', cursive;
     --font-body: 'Rajdhani', sans-serif;
     --font-mono: 'Share Tech Mono', monospace;
     
+    /* Medidas fijas para que nada se mueva de lugar */
     --header-height: 48px;
     --sidebar-width: 280px;
 }
 
+/* El famoso reset de CSS */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Esto hace que el padding no agrande los elementos */
 }
 
 body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
     font-family: var(--font-body);
-    height: 100vh;
-    overflow: hidden;
+    height: 100vh; /* Que ocupe toda la pantalla */
+    overflow: hidden; /* Evita que aparezca el scroll de la página completa */
 }
 
+/* Clases de ayuda para las fuentes */
 .medieval { font-family: var(--font-medieval); }
 .share-tech { font-family: var(--font-mono); }
 .rajdhani { font-family: var(--font-body); }
 
-/* Header */
+/* Estilos de la barra de arriba */
 .main-header {
     height: var(--header-height);
     background-color: var(--surface);
@@ -43,7 +49,7 @@ body {
     justify-content: space-between;
     padding: 0 1.5rem;
     position: relative;
-    z-index: 100;
+    z-index: 100; /* Para que siempre esté por encima de todo */
 }
 
 .logo {
@@ -55,49 +61,32 @@ body {
 .logo span:first-child {
     font-size: 1.2rem;
     color: var(--accent-amber);
-    text-shadow: 0 0 10px rgba(217, 119, 6, 0.4);
+    text-shadow: 0 0 10px rgba(217, 119, 6, 0.4); /* Le da un brillito neón */
 }
 
-.logo .subtitle {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--text-dim);
-}
-
-.course-name {
-    font-size: 0.75rem;
-    color: var(--accent-copper);
-    letter-spacing: 1px;
-}
-
-.status-indicator {
-    font-size: 0.7rem;
-    color: var(--accent-hop);
-}
-
-/* Layout */
+/* El contenedor principal que divide Sidebar y Contenido */
 .app-container {
     display: flex;
-    height: calc(100vh - var(--header-height));
+    height: calc(100vh - var(--header-height)); /* Restamos la altura del header */
 }
 
 .sidebar {
     width: var(--sidebar-width);
     background-color: var(--bg-dark);
     border-right: 1px solid rgba(146, 64, 14, 0.3);
-    overflow-y: auto;
+    overflow-y: auto; /* Solo el sidebar tiene su propio scroll */
     padding: 1rem;
 }
 
 .content-area {
-    flex-grow: 1;
+    flex-grow: 1; /* Esto hace que ocupe todo el espacio que sobra */
     overflow-y: auto;
     position: relative;
+    /* Un gradiente para que el fondo no sea plano y aburrido */
     background: radial-gradient(circle at center, #0f0f1f 0%, #07070f 100%);
 }
 
-/* Scrollbar */
+/* Personalizando el scrollbar para que se vea Pro */
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -109,7 +98,7 @@ body {
     border-radius: 10px;
 }
 
-/* Welcome Screen */
+/* La pantalla de bienvenida cuando no hay nada seleccionado */
 .welcome-screen {
     height: 100%;
     display: flex;
@@ -118,6 +107,7 @@ body {
     position: relative;
 }
 
+/* Ese patrón de cuadrícula de fondo que parece de ingeniería */
 .grid-bg {
     position: absolute;
     top: 0;
@@ -130,9 +120,10 @@ body {
     pointer-events: none;
 }
 
-.welcome-content {
-    text-align: center;
-    z-index: 5;
+/* Animación de flotar para el ícono de bienvenida */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
 .floating-icon {
@@ -141,36 +132,7 @@ body {
     animation: float 4s ease-in-out infinite;
 }
 
-.amber-gradient-text {
-    font-size: 3rem;
-    background: linear-gradient(to right, var(--accent-amber), var(--accent-hop));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-/* Topic View */
-.topic-view {
-    padding: 2.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
-    animation: fadeIn 0.4s ease-out;
-}
-
-.topic-view.hidden {
-    display: none;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
+/* Títulos de las secciones */
 .section-title {
     font-family: var(--font-medieval);
     color: var(--accent-amber);
