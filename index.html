@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew Master Academy | De la pinta a la cervecería</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <header class="main-header">
+            <div class="logo">
+                <span class="medieval">BREW MASTER</span>
+                <span class="rajdhani subtitle">ACADEMY</span>
+            </div>
+            <div class="course-name share-tech">DE TU PRIMERA PINTA A TU PROPIA CERVECERÍA</div>
+            <div id="course-status" class="status-indicator">
+                <span class="share-tech">SYSTEM: ONLINE</span>
+            </div>
+        </header>
+
+        <div class="app-container">
+            <aside class="sidebar">
+                <div id="skill-tree"></div>
+            </aside>
+
+            <main id="main-content" class="content-area">
+                <div id="welcome-view" class="welcome-screen">
+                    <div class="grid-bg"></div>
+                    <div class="welcome-content">
+                        <div class="floating-icon">🍺</div>
+                        <h1 class="amber-gradient-text medieval">BREW MASTER ACADEMY</h1>
+                        <p class="rajdhani">SELECCIONA UN TEMA PARA COMENZAR TU APRENDIZAJE</p>
+                    </div>
+                </div>
+                <div id="topic-view" class="topic-view hidden">
+                    <!-- Dynamic content -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
